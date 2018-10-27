@@ -1,1 +1,1 @@
-# web-arch-essd
+# web-arch-exercise
