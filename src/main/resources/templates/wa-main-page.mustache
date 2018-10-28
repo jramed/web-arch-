@@ -111,57 +111,22 @@
         <div class="container">
           <div class="row bar mb-0">
             <div id="customer-orders" class="col-md-9">
-              <p class="text-muted lead">{{#showEmptyOrdersMsg}}There is not any order done yet. Please use the button new order to place your first order{{/showEmptyOrdersMsg}}<p>
-              <p class="text-muted lead">{{#customerOrders}}{{id}}{{/customerOrders}}<p>
+              <p class="text-muted lead">{{#showEmptyOrdersMsg}}There is not any order placed yet.{{/showEmptyOrdersMsg}}<p>
               {{#showOrders}}
               <div class="box mt-0 mb-lg-0">
                 <div class="table-responsive">
                   <table class="table table-hover">
                     <thead>
                       <tr>
-                        <th>Order</th>
-                        <th>Date</th>
-                        <th>Total</th>
-                        <th>Status</th>
-                        <th>Action</th>
+                        <th>These are the orders you have done</th>
                       </tr>
                     </thead>
                     <tbody>
+                      {{#customerOrders}}
                       <tr>
-                        <th># 1735</th>
-                        <td>22/06/2013</td>
-                        <td>$ 150.00</td>
-                        <td><span class="badge badge-info">Being prepared</span></td>
-                        <td><a href="customer-order.html" class="btn btn-template-outlined btn-sm">View</a></td>
+                        <th><a href="wa-detail-order/{{id}}"class="nav-link">{{name}}</a></th>
                       </tr>
-                      <tr>
-                        <th># 1735</th>
-                        <td>22/06/2013</td>
-                        <td>$ 150.00</td>
-                        <td><span class="badge badge-info">Being prepared</span></td>
-                        <td><a href="customer-order.html" class="btn btn-template-outlined btn-sm">View</a></td>
-                      </tr>
-                      <tr>
-                        <th># 1735</th>
-                        <td>22/06/2013</td>
-                        <td>$ 150.00</td>
-                        <td><span class="badge badge-success">Received</span></td>
-                        <td><a href="customer-order.html" class="btn btn-template-outlined btn-sm">View</a></td>
-                      </tr>
-                      <tr>
-                        <th># 1735</th>
-                        <td>22/06/2013</td>
-                        <td>$ 150.00</td>
-                        <td><span class="badge badge-danger">Cancelled</span></td>
-                        <td><a href="customer-order.html" class="btn btn-template-outlined btn-sm">View</a></td>
-                      </tr>
-                      <tr>
-                        <th># 1735</th>
-                        <td>22/06/2013</td>
-                        <td>$ 150.00</td>
-                        <td><span class="badge badge-warning">On hold</span></td>
-                        <td><a href="customer-order.html" class="btn btn-template-outlined btn-sm">View</a></td>
-                      </tr>
+                      {{/customerOrders}}
                     </tbody>
                   </table>
                 </div>
