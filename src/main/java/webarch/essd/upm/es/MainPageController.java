@@ -62,5 +62,12 @@ public class MainPageController {
 		model.addAttribute("customerOrders", customerOrders);
 		return "wa-main-page";
 	}
+	
+	@GetMapping("/wa-place-new-order")
+	public String placeNewOrder(Model model) {
+		
+		//return "customer-register.html";
+		return "wa-place-new-order";
+	}
 
 }
