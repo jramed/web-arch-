@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+//import javax.validation.constraints.NotEmpty;
 
 
 @Entity
@@ -17,13 +18,14 @@ public class CustomerOrder {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
-	
+//	@NotEmpty
 	private String name;
-	
-	@ManyToMany(mappedBy="orders")
-	private List<Product> products = new ArrayList<>();
 
-	public CustomerOrder() {
+//	@NotEmpty
+	@ManyToMany(mappedBy="orders")
+	private List<Product> products = new ArrayList<Product>();
+
+	protected CustomerOrder() {
 	}
 
 	public List<Product> getProducts() {
@@ -57,7 +59,7 @@ public class CustomerOrder {
 
 	@Override
 	public String toString() {
-		return "CustomerOrder [id=" + id + ", name=" + name + ", products=" + products + "]";
+		return "CustomerOrder [id=" + id + ", name=" + name + ", products= " + products + "]";
 	}
 
 }
