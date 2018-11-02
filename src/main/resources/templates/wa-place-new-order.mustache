@@ -116,14 +116,14 @@
                 <p class="lead">Haven't you started your new order yet?</p>
                 <p>Just start doing it.</p>
                 <hr>
-                <form action="wa-store-order.html" method="post">
+                <form action="wa-store-order" method="get">
                   <div class="form-group">
-                    <label for="name-orderTitle">Title<span class="required text-primary">*</span></label>
-                    <input id="name-orderTitle" type="text" class="form-control">
+                    <label for="order-title">Title<span class="required text-primary">*</span></label>
+                    <input id="order-title" type="text" name="name" class="form-control">
                   </div>
                   <div class="form-group">
-                    <label for="email-orderElement">Element to buy</label>
-                    <input id="email-orderElement" type="text" class="form-control">
+                    <label for="order-element">Element to buy</label>
+                    <input id="order-element" type="text" name="productNames[]" class="form-control">
                   </div>
                   <div class="text-left">
                     <button type="submit" class="btn btn-template-outlined"><i class="fa fa-shopping-cart"></i> Checkout order</button>

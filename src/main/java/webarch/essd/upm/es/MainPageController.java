@@ -1,13 +1,19 @@
 package webarch.essd.upm.es;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import webarch.essd.upm.es.model.CustomerOrder;
 import webarch.essd.upm.es.model.Product;
@@ -47,6 +53,11 @@ public class MainPageController {
 	
 	@GetMapping("/wa-main-page")
 	public String customerOrders(Model model) {
+		generateMainPageData(model);
+		return "wa-main-page";
+	}
+
+	private void generateMainPageData(Model model) {
 		List<CustomerOrder> customerOrders = customerOrderRepository.findAll();
 		boolean showEmptyOrdersMsg = false ;
 		boolean showOrders = false;
@@ -60,14 +71,32 @@ public class MainPageController {
 		model.addAttribute("showEmptyOrdersMsg", showEmptyOrdersMsg);
 		model.addAttribute("showOrders", showOrders);
 		model.addAttribute("customerOrders", customerOrders);
-		return "wa-main-page";
 	}
 	
+	//web page with jscript instead for mustache template?
 	@GetMapping("/wa-place-new-order")
 	public String placeNewOrder(Model model) {
 		
-		//return "customer-register.html";
 		return "wa-place-new-order";
 	}
-
+	
+	@GetMapping("/wa-store-order")
+	public String storeNewOrder(Model model, @RequestParam String name, 
+			@RequestParam(value="productNames[]") String[] productNames) {
+		
+		CustomerOrder customerOrder = new CustomerOrder(name);
+		customerOrderRepository.save(customerOrder);
+		
+		for (String productName : productNames) {
+			Product p1 = new Product(productName);
+			p1.getOrders().add(customerOrder);
+			productRepository.save(p1);
+		}
+		
+		System.out.println("The order content is: " + customerOrder.toString());
+		generateMainPageData(model);		
+		return "wa-main-page";
+	}
+	
+	
 }
