@@ -27,7 +27,7 @@ public class MainPageController {
 	@Autowired
 	private CustomerOrderRepository customerOrderRepository;
 	
-	@PostConstruct
+/*	@PostConstruct
 	public void init() {
 
 		CustomerOrder order1 = new CustomerOrder("Selección");
@@ -49,7 +49,7 @@ public class MainPageController {
 		
 		productRepository.save(p1);
 		productRepository.save(p2);
-}
+}*/
 	
 	@GetMapping("/wa-main-page")
 	public String customerOrders(Model model) {
