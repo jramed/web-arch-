@@ -40,14 +40,39 @@
     <script src="js/disable_order_submit_button.js"></script>
 
 	<script>
+	    var wai = 2;
 		function my_button_click_handler() {
 			//alert('Button Clicked');
 			$(document).ready(function(){
-				$(".box-footer").before('\
-						<div class="form-group">\
-	                    <input id="order-element-" type="text" name="productNames[]" class="form-control">\
-                        </div>\
+				$(".wa-insert-new-text-box").before('\
+						<tr id="wa-row-' +wai+'"><div class="form-group">\
+						<td>\
+	                        <input id="order-element-'+ wai +'" type="text" name="productNames[]" class="form-control">\
+	                    </td>\
+	                    <td><div class="wa-add-class "</div><button type="button" id="delete-element-' + wai+ ' " >\
+						    <i class="fa fa-trash"></i></button>\
+						</td>\
+						</div>\
+						</tr>\
                 ')
+                
+                wai++;
+				
+                $('#submit-order-button').attr('disabled',true);
+                
+				$('.wa-trash-button').after('<button type="button" id="delete-element-1" >\
+											<i class="fa fa-trash"></i></button>');
+				$("div").removeClass("wa-trash-button");
+				//$('#order-element').after('<a href="#"><i class="fa fa-trash-o"></i></a>');
+				
+				//implement the removal of the form field, but when there is one left
+				//we can get the id of the button and use the number to remove the element/tr with the same number
+				//when there is one left, remove the trash button, get the id and remove it
+				//add the wa-trash-button to the wa-add-class before add new rows (only with one element with wa-add-class)
+				//the new single element can have a number different than 1, that must be fixed
+				//When the button is created for the first item the first time,
+				//get the number from the id and attach it to the id of the button
+				
 			});
 			return false;
 		}
@@ -107,14 +132,29 @@
                 <p>Just start doing it.</p>
                 <hr>
                 <form class="form-form" action="wa-store-order" method="get">
+                <div class="table-responsive">
+                  <table class="table">
+                  <tbody>
+                  <tr>
+                  <td>
                   <div class="form-group">
                     <label for="order-title">Title<span class="required text-primary">*</span></label>
                     <input id="order-title" type="text" name="name" class="form-control">
                   </div>
+                  </td>
+                  <td></td>
+                  </tr>
+                  <tr id="wa-row-1">
+                  <td>
                   <div class="form-group">
                     <label for="order-element">items to buy<span class="required text-primary">*</span></label>
                     <input id="order-element-1" type="text" name="productNames[]" class="form-control">
                   </div>
+                  </td>
+                  <td><div class="wa-add-class wa-trash-button"></div></td>
+                  </tr>
+                  <tr class="wa-insert-new-text-box">
+                  <td>
                   <div class="box-footer d-flex justify-content-between align-items-center">
                     <div class="left-col">
                       <button type="button" onclick="my_button_click_handler()" class="btn btn-secondary"><i class="fa fa-plus"></i> Add item</button>
@@ -122,6 +162,11 @@
                     <div class="right-col">
                       <button type="submit" id="submit-order-button" class="btn btn-template-outlined">Proceed to checkout <i class="fa fa-chevron-right"></i></button>
                     </div>
+                  </div>
+				  </td>
+                  </tr>
+                  </tbody>
+                  </table>
                   </div>
                 </form>
               </div>
