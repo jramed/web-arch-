@@ -37,11 +37,18 @@
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
     
     <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="js/disable_order_submit_button2.js"></script>
+    <script src="js/disable_order_submit_button.js"></script>
 
 	<script>
 		function my_button_click_handler() {
-			alert('Button Clcked');
+			//alert('Button Clicked');
+			$(document).ready(function(){
+				$(".box-footer").before('\
+						<div class="form-group">\
+	                    <input id="order-element-" type="text" name="productNames[]" class="form-control">\
+                        </div>\
+                ')
+			});
 			return false;
 		}
 	</script>
@@ -107,9 +114,6 @@
                   <div class="form-group">
                     <label for="order-element">items to buy<span class="required text-primary">*</span></label>
                     <input id="order-element-1" type="text" name="productNames[]" class="form-control">
-                  </div>
-                  <div class="form-group">
-                    <input id="order-element-2" type="text" name="productNames[]" class="form-control">
                   </div>
                   <div class="box-footer d-flex justify-content-between align-items-center">
                     <div class="left-col">
