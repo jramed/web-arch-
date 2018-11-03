@@ -35,7 +35,17 @@
     <!-- Tweaks for older IEs--><!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
-  </head>
+    
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="js/disable_order_submit_button2.js"></script>
+
+	<script>
+		function my_button_click_handler() {
+			alert('Button Clcked');
+			return false;
+		}
+	</script>
+</head>
   <body>
     <div id="all">
       <!-- Top bar-->
@@ -64,33 +74,6 @@
         </div>
       </div>
       <!-- Top bar end-->
-      <!-- Login Modal-->
-      <div id="login-modal" tabindex="-1" role="dialog" aria-labelledby="login-modalLabel" aria-hidden="true" class="modal fade">
-        <div role="document" class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h4 id="login-modalLabel" class="modal-title">Customer Login</h4>
-              <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true">×</span></button>
-            </div>
-            <div class="modal-body">
-              <form action="customer-orders.html" method="get">
-                <div class="form-group">
-                  <input id="email_modal" type="text" placeholder="email" class="form-control">
-                </div>
-                <div class="form-group">
-                  <input id="password_modal" type="password" placeholder="password" class="form-control">
-                </div>
-                <p class="text-center">
-                  <button class="btn btn-template-outlined"><i class="fa fa-sign-in"></i> Log in</button>
-                </p>
-              </form>
-              <p class="text-center text-muted">Not registered yet?</p>
-              <p class="text-center text-muted"><a href="customer-register.html"><strong>Register now</strong></a>! It is easy and done in 1 minute and gives you access to special discounts and much more!</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- Login modal end-->
       
       <div id="heading-breadcrumbs">
         <div class="container">
@@ -116,20 +99,25 @@
                 <p class="lead">Haven't you started your new order yet?</p>
                 <p>Just start doing it.</p>
                 <hr>
-                <form action="wa-store-order" method="get">
+                <form class="form-form" action="wa-store-order" method="get">
                   <div class="form-group">
                     <label for="order-title">Title<span class="required text-primary">*</span></label>
                     <input id="order-title" type="text" name="name" class="form-control">
                   </div>
                   <div class="form-group">
-                    <label for="order-element">Element to buy</label>
-                    <input id="order-element" type="text" name="productNames[]" class="form-control">
+                    <label for="order-element">items to buy<span class="required text-primary">*</span></label>
+                    <input id="order-element-1" type="text" name="productNames[]" class="form-control">
                   </div>
-                  <div class="text-left">
-                    <button type="submit" class="btn btn-template-outlined"><i class="fa fa-shopping-cart"></i> Checkout order</button>
+                  <div class="form-group">
+                    <input id="order-element-2" type="text" name="productNames[]" class="form-control">
                   </div>
-                  <div class="text-right">
-                    <button type="submit" class="btn btn-template-outlined"><i class="fa fa-plus"></i> Add element</button>
+                  <div class="box-footer d-flex justify-content-between align-items-center">
+                    <div class="left-col">
+                      <button type="button" onclick="my_button_click_handler()" class="btn btn-secondary"><i class="fa fa-plus"></i> Add item</button>
+                    </div>
+                    <div class="right-col">
+                      <button type="submit" id="submit-order-button" class="btn btn-template-outlined">Proceed to checkout <i class="fa fa-chevron-right"></i></button>
+                    </div>
                   </div>
                 </form>
               </div>
