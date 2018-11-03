@@ -1,7 +1,7 @@
 $(document).ready(function() {
 	$('#submit-order-button').attr('disabled',true);
 	
-    $('.form-form input').change(function() {
+    $('.form-form input').on('change keyup',function() {
     	console.log("inside change function");
         var $emptyFields = $('.form-form input').filter(function() {
             console.log("The value: " + this.value );
