@@ -1,11 +1,11 @@
 $(document).ready(function() {
 	$('#submit-order-button').attr('disabled',true);
-    $('.form-form input').keyup(function() {
-    	console.log("inside keyup function");
+	
+    $('.form-form input').change(function() {
+    	console.log("inside change function");
         var $emptyFields = $('.form-form input').filter(function() {
-        	console.log("inside filter");
-        	console.log(this.value);
-            return $.trim(this.value) === "";
+            console.log("The value: " + this.value );
+        	return $.trim(this.value) === "";
         });
 
         if (!$emptyFields.length) {
