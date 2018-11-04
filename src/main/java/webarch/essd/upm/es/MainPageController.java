@@ -108,7 +108,22 @@ public class MainPageController {
 			return "wa-shop-basket";
 		}
 		
-		return "404.html";
+		return "public/404.html";
+	}
+	
+	@GetMapping("/wa-remove-order/{id}")
+	public String removeOrder(Model model, @PathVariable long id) {
+		Optional<CustomerOrder> customerOrder = customerOrderRepository.findById(id);
+		if (customerOrder.isPresent()) {
+			for (Product product: customerOrder.get().getProducts()) {
+				productRepository.delete(product);
+			}
+			System.out.println("Inside remove order and with id: "+ id);
+			customerOrderRepository.delete(customerOrder.get());
+			generateMainPageData(model);
+			return "wa-main-page";
+		}
+		return "public/404.html";
 	}
 	
 	
