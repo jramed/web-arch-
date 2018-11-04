@@ -1,18 +1,15 @@
 package webarch.essd.upm.es;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
-import javax.annotation.PostConstruct;
-import javax.validation.Valid;
+//import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import webarch.essd.upm.es.model.CustomerOrder;
@@ -67,7 +64,7 @@ public class MainPageController {
 		else {
 			showOrders = true;
 		}
-		System.out.println("The DB content is: " + customerOrders);
+
 		model.addAttribute("showEmptyOrdersMsg", showEmptyOrdersMsg);
 		model.addAttribute("showOrders", showOrders);
 		model.addAttribute("customerOrders", customerOrders);
@@ -85,17 +82,31 @@ public class MainPageController {
 			@RequestParam(value="productNames[]") String[] productNames) {
 		
 		CustomerOrder customerOrder = new CustomerOrder(name);
-		customerOrderRepository.save(customerOrder);
+		CustomerOrder customerOrder1 = customerOrderRepository.save(customerOrder);
 		
 		for (String productName : productNames) {
 			Product p1 = new Product(productName);
-			p1.getOrders().add(customerOrder);
+			p1.getOrders().add(customerOrder1);
 			productRepository.save(p1);
 		}
 		
-		System.out.println("The order content is: " + customerOrder.toString());
+		System.out.println("The order content is: " + customerOrder1.toString());
 		generateMainPageData(model);		
 		return "wa-main-page";
+	}
+	
+	@GetMapping("/wa-detail-order/{id:\\d+}")
+	public String detailOrder(Model model, @PathVariable long id) {
+		Optional<CustomerOrder> customerOrder = customerOrderRepository.findById(id);
+		if (customerOrder.isPresent()) {
+			System.out.println("The order content read form DB is: "+ customerOrder.toString());
+			model.addAttribute("name", customerOrder.get().getName());
+			List<String> products = customerOrder.get().getProducstNames();
+			System.out.println("The list of products is: "+ products.toString());
+			model.addAttribute("products", products);
+			return "wa-shop-basket";
+		}
+		return "404.html";
 	}
 	
 	
