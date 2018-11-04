@@ -38,29 +38,55 @@
     
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="js/disable_order_submit_button.js"></script>
-
+	
+	<script>
+	    //check if some field is still emtpy in form
+	    //useful when the removed field was the one
+	    //that disable the submit button
+		function checkEmptiness(){
+			console.log("checkEmptiness");
+	        var empty = false;
+			$('.form-form input').each( function() {
+				console.log("inside function each check Emptiness");
+				console.log("Value: " + this.value)
+				if ($.trim(this.value).length == 0) {
+					console.log("empty");
+					empty = true;
+				}
+			});
+		
+			if (!empty) {
+				$('#submit-order-button').attr('disabled', false);
+				console.log("enabled");
+			} else {
+				$('#submit-order-button').attr('disabled', true);
+				console.log("disabled");
+			}
+		}
+	</script>
+	
 	<script>
 		function waGetNumberFromId(waIdElement){
 			var waTokenizedId = waIdElement.split("-",3);
-			//var waIdInt = parseInt(waTokenizedId[2],10);
-			console.log("The string is: " + waTokenizedId[2]);
+			//console.log("The string is: " + waTokenizedId[2]);
 			return waTokenizedId[2];
 		}
 		
 
 		$(document).ready(function() {
-			console.log("before fa.trash handler");
+			//console.log("before fa.trash handler");
 			//use event delegation because the button was dinamically added
 			//https://learn.jquery.com/events/event-delegation/
 			$('.form-form').on('click', '.wa-remove-element', function() {
-				console.log("inside remove element");
+				//console.log("inside remove element");
 				var waOwnId = this.id;
 				var waIdTableRow = "wa-row-" + waGetNumberFromId(waOwnId);
-				console.log("The table row ud is: " + waIdTableRow);
+				//console.log("The table row ud is: " + waIdTableRow);
 				var numItems = $('.wa-remove-element').length;
-				console.log("Elements number:", numItems);
+				//console.log("Elements number:", numItems);
 				if (numItems > 1) {
 					$("#" + waIdTableRow).remove();
+					checkEmptiness();
 				}
 				
 				//The number of item was 2, so after the removal only left
@@ -80,11 +106,10 @@
 	<script>
 	    var waCount = 2;
 		function my_button_click_handler() {
-			//alert('Button Clicked');
 			$(document).ready(function(){
 				//Disable the submit button because new empty field is added
 				$('#submit-order-button').attr('disabled',true);
-				
+				console.log("disabled");
 				$(".wa-insert-new-text-box").before('\
 						<tr class="wa-row" id="wa-row-' +waCount+'"><div class="form-group">\
 						<td>\
@@ -106,7 +131,7 @@
                 	//if the first field is removed when added the button the number
                 	//must be gathered from the tr id
                 	var waIdNumber = waGetNumberFromId($('.wa-row')[0].id);
-                	console.log("number got from tr: ", waIdNumber);
+                	//console.log("number got from tr: ", waIdNumber);
 					$('.wa-trash-button').after('<button type="button" id="delete-elemen-'+ waIdNumber +'" class="wa-remove-element" >\
 											<i class="fa fa-trash"></i></button>');
 					//Remove the class to avoid to add more that one button to first field
