@@ -104,8 +104,10 @@ public class MainPageController {
 			List<String> products = customerOrder.get().getProducstNames();
 			System.out.println("The list of products is: "+ products.toString());
 			model.addAttribute("products", products);
+			model.addAttribute("id", id);
 			return "wa-shop-basket";
 		}
+		
 		return "404.html";
 	}
 	
