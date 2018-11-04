@@ -31,6 +31,15 @@ public class CustomerOrder {
 	public List<Product> getProducts() {
 		return products;
 	}
+	
+	public List<String> getProducstNames() {
+		List<Product> products = getProducts();
+		List<String> productsNames = new ArrayList<>();
+		for (Product product: products) {
+			productsNames.add(product.getName());
+		}
+		return productsNames;
+	}
 
 	public void setProducts(List<Product> products) {
 		this.products = products;
