@@ -65,34 +65,6 @@
           </div>
         </div>
       </div>
-      <!-- Top bar end-->
-      <!-- Login Modal-->
-      <div id="login-modal" tabindex="-1" role="dialog" aria-labelledby="login-modalLabel" aria-hidden="true" class="modal fade">
-        <div role="document" class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h4 id="login-modalLabel" class="modal-title">Customer Login</h4>
-              <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true">×</span></button>
-            </div>
-            <div class="modal-body">
-              <form action="customer-orders.html" method="get">
-                <div class="form-group">
-                  <input id="email_modal" type="text" placeholder="email" class="form-control">
-                </div>
-                <div class="form-group">
-                  <input id="password_modal" type="password" placeholder="password" class="form-control">
-                </div>
-                <p class="text-center">
-                  <button class="btn btn-template-outlined"><i class="fa fa-sign-in"></i> Log in</button>
-                </p>
-              </form>
-              <p class="text-center text-muted">Not registered yet?</p>
-              <p class="text-center text-muted"><a href="customer-register.html"><strong>Register now</strong></a>! It is easy and done in 1 minute and gives you access to special discounts and much more!</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- Login modal end-->
       
       <div id="heading-breadcrumbs">
         <div class="container">
@@ -117,50 +89,12 @@
             </div>
             <div id="basket" class="col-lg-9">
               <div class="box mt-0 pb-0 no-horizontal-padding">
-                <form method="get" action="shop-checkout1.html">
-                  <div class="table-responsive">
-                    <table class="table">
-                      <thead>
-                        <tr>
-                          <th colspan="2">Product</th>
-                          <th>Quantity</th>
-                          <th>Unit price</th>
-                          <th>Discount</th>
-                          <th colspan="2">Total</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td><a href="#"><img src="img/detailsquare.jpg" alt="White Blouse Armani" class="img-fluid"></a></td>
-                          <td><a href="#">White Blouse Armani</a></td>
-                          <td>
-                            <input type="number" value="2" class="form-control">
-                          </td>
-                          <td>$123.00</td>
-                          <td>$0.00</td>
-                          <td>$246.00</td>
-                          <td><a href="#"><i class="fa fa-trash-o"></i></a></td>
-                        </tr>
-                        <tr>
-                          <td><a href="#"><img src="img/basketsquare.jpg" alt="Black Blouse Armani" class="img-fluid"></a></td>
-                          <td><a href="#">Black Blouse Armani</a></td>
-                          <td>
-                            <input type="number" value="1" class="form-control">
-                          </td>
-                          <td>$200.00</td>
-                          <td>$0.00</td>
-                          <td>$200.00</td>
-                          <td><a href="#"><i class="fa fa-trash-o"></i></a></td>
-                        </tr>
-                      </tbody>
-                      <tfoot>
-                        <tr>
-                          <th colspan="5">Total</th>
-                          <th colspan="2">$446.00</th>
-                        </tr>
-                      </tfoot>
-                    </table>
-                  </div>
+              	<p>List of products for the order: {{name}}</p>
+              	<ul>
+              	{{#products}}
+              		<li>{{.}}</li>
+              	{{/products}}
+              	</ul>
                   <div class="box-footer d-flex justify-content-between align-items-center">
                     <div class="left-col"><a href="shop-category.html" class="btn btn-secondary mt-0"><i class="fa fa-chevron-left"></i> Continue shopping</a></div>
                     <div class="right-col">
@@ -168,8 +102,7 @@
                       <button type="submit" class="btn btn-template-outlined">Proceed to checkout <i class="fa fa-chevron-right"></i></button>
                     </div>
                   </div>
-                </form>
-              </div>
+               </div>
             </div>
           </div>
         </div>
