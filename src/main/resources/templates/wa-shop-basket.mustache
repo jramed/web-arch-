@@ -37,6 +37,13 @@
     <!-- Tweaks for older IEs--><!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+        
+    <script>
+		function checkRemoval() {
+			return confirm("Please confirm or cancel the operation");
+		}
+	//If the button was disabled and the empty field is removed, then the button is not enabled FIX IT
+	</script>
   </head>
   <body>
     <div id="all">
@@ -86,7 +93,7 @@
           <div class="row bar">
             <div class="col-lg-9">
               <div class="box mt-0 pb-0 no-horizontal-padding">
-                <form method="get" action="/wa-remove-order/{{id}}">          	
+                <form method="get" action="/wa-remove-order/{{id}}" onsubmit="return checkRemoval();">          	
                   <div class="table-responsive">
                     <p class="text-muted">List of products for the order: <span class="text-success">{{name}}</span></p>
               	    <table class="table">
@@ -104,7 +111,7 @@
                     <a href="/wa-update-cart/{{id}}" class="btn btn-template-outlined"><i class="fa fa-refresh"></i>Update cart</a>
                   </div>
                   <div class="right-col">
-                    <button type="submit" class="btn btn-template-outlined">Remove order<i class="fa fa-trash"></i></button>
+                    <button type="submit" class="btn btn-template-outlined " >Remove order<i class="fa fa-trash"></i></button>
                   </div>
                 </div>
                 </form>
