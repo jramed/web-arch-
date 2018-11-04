@@ -86,24 +86,28 @@
           <div class="row bar">
             <div class="col-lg-9">
               <div class="box mt-0 pb-0 no-horizontal-padding">
-              	<p class="text-muted">List of products for the order: <span class="text-success">{{name}}</span></p>
-              	{{#products}}
-              	   <table class="table">
-                      <tbody>
+                <form method="get" action="/wa-remove-order/{{id}}">          	
+                  <div class="table-responsive">
+                    <p class="text-muted">List of products for the order: <span class="text-success">{{name}}</span></p>
+              	    <table class="table">
+                     <tbody>
+              	      {{#products}}
                         <tr>
                           <td class="text-muted">{{.}}</td>
                         </tr>
+                      {{/products}}
                       </tbody>
                     </table>
-                {{/products}}
+                  </div>
                 <div class="box-footer d-flex justify-content-between align-items-center">
                   <div class="left-col">
                     <a href="/wa-update-cart/{{id}}" class="btn btn-template-outlined"><i class="fa fa-refresh"></i>Update cart</a>
                   </div>
                   <div class="right-col">
-                    <a href="/wa-remove-order/{{id}}" class="btn btn-danger"><i class="fa fa-trash"></i>Remove order</a>
+                    <button type="submit" class="btn btn-template-outlined">Remove order<i class="fa fa-trash"></i></button>
                   </div>
                 </div>
+                </form>
               </div>
             </div>
           </div>
