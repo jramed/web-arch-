@@ -57,9 +57,13 @@
 		
 			if (!empty) {
 				$('#submit-order-button').attr('disabled', false);
+				$('#submit-order-button').removeClass("btn-secondary");
+				$('#submit-order-button').addClass("btn-template-outlined");
 				console.log("enabled");
 			} else {
 				$('#submit-order-button').attr('disabled', true);
+				$('#submit-order-button').removeClass("btn-template-outlined");
+				$('#submit-order-button').addClass("btn-secondary");
 				console.log("disabled");
 			}
 		}
@@ -109,6 +113,8 @@
 			$(document).ready(function(){
 				//Disable the submit button because new empty field is added
 				$('#submit-order-button').attr('disabled',true);
+				$('#submit-order-button').removeClass("btn-template-outlined");
+				$('#submit-order-button').addClass("btn-secondary");
 				console.log("disabled");
 				$(".wa-insert-new-text-box").before('\
 						<tr class="wa-row" id="wa-row-' +waCount+'"><div class="form-group">\

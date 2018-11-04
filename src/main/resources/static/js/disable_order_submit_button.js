@@ -1,8 +1,10 @@
 $(document).ready(function(){
 	$('#submit-order-button').attr('disabled',true);
 	console.log("button checkout disabled");
+	$('#submit-order-button').removeClass("btn-template-outlined");
+	$('#submit-order-button').addClass("btn-secondary");
 	
-	$('.form-form').on('keyup blur mouseleave', 'input', function(){
+	$('.form-form').on('keyup blur input', 'input', function(){
 		console.log("inside function keyup");
         var empty = false;
         $('input').each(function() {
