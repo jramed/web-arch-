@@ -187,7 +187,7 @@
             <div class="col-md-5">
               <ul class="breadcrumb d-flex justify-content-end">
                 <li class="breadcrumb-item"><a href="/wa-main-page">Home</a></li>
-                <li class="breadcrumb-item active">Place new order</li>
+                <li class="breadcrumb-item active">Update order</li>
               </ul>
             </div>
           </div>
@@ -197,12 +197,10 @@
         <div class="container">
           <div class="row">
             <div class="col-lg-12">
-              <div class="box">
-                <h2 class="text-uppercase">New order</h2>
-                <p class="lead">Haven't you started your new order yet?</p>
-                <p>Just start doing it.</p>
+
+                <p class="lead">You can update the items of the order by adding, removing or modifying them</p>
                 <hr>
-                <form class="form-form" action="/wa-store-order" method="get">
+                <form class="form-form" action="/wa-store-update-order/{{orderId}}" method="get">
                 <div class="table-responsive">
                   <table class="table">
                   <tbody>
@@ -239,7 +237,8 @@
                       <button type="button" onclick="my_button_click_handler()" class="btn btn-template-outlined"><i class="fa fa-plus"></i> Add item</button>
                     </div>
                     <div class="right-col">
-                      <button type="submit" id="submit-order-button" class="btn btn-template-outlined">Proceed to checkout <i class="fa fa-chevron-right"></i></button>
+                      <button class="btn btn-secondary">Cancel update<a href="/wa-main-page"><i class="fa fa-cancel"></i></a></button>
+                      <button type="submit" id="submit-order-button" class="btn btn-template-outlined">Proceed to checkout<i class="fa fa-chevron-right"></i></button>
                     </div>
                   </div>
 				  </td>
@@ -248,7 +247,7 @@
                   </table>
                   </div>
                 </form>
-              </div>
+
             </div>
           </div>
         </div>

@@ -133,6 +133,7 @@ public class MainPageController {
 			List<Product> products = customerOrder.get().getProducts();
 			model.addAttribute("products",products);
 			model.addAttribute("orderName", customerOrder.get().getName());
+			model.addAttribute("orderId", customerOrder.get().getId());
 			return "wa-update-order";
 		}
 		return "public/404.html";
