@@ -126,5 +126,17 @@ public class MainPageController {
 		return "public/404.html";
 	}
 	
+	@GetMapping("/wa-update-order/{id}")
+	public String updateOrder(Model model, @PathVariable long id) {
+		Optional<CustomerOrder> customerOrder = customerOrderRepository.findById(id);
+		if ( customerOrder.isPresent()) {
+			List<Product> products = customerOrder.get().getProducts();
+			model.addAttribute("products",products);
+			model.addAttribute("orderName", customerOrder.get().getName());
+			return "wa-update-order";
+		}
+		return "public/404.html";
+	}
+	
 	
 }
