@@ -104,6 +104,22 @@
 	</script>
 	
 	<script>
+		$(document).ready(function(){
+			console.log("before inserting trash button");
+			console.log("number of rows: "+ $('.wa-row').length);
+			if ($('.wa-row').length > 1){
+				console.log("more than one row");
+				$('.wa-row').each(function(){
+					console.log("inside each loop for row: "+this.id);
+					var waIdNumber = waGetNumberFromId(this.id);
+					$('div.wa-trash-button:first').after('<button type="button" id="delete-elemen-'+ waIdNumber +'" class="wa-remove-element" >\
+					<i class="fa fa-trash"></i></button>');
+					//Remove the class to avoid to add more that one button to first field
+					$("div.wa-trash-button:first").removeClass("wa-trash-button");
+				});
+			}
+		});
+		
 		function selectHigherId() {
 			var waHigherId = 2;
 			$('.wa-row').each(function(){
