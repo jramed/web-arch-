@@ -37,146 +37,21 @@
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
     
     <script src="/vendor/jquery/jquery.min.js"></script>
-    <script src="/js/disable_order_submit_button.js"></script>
+    <script src="/vendor/popper.js/umd/popper.min.js"> </script>
+    <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/vendor/jquery.cookie/jquery.cookie.js"> </script>
+    <script src="/vendor/waypoints/lib/jquery.waypoints.min.js"> </script>
+    <script src="/vendor/jquery.counterup/jquery.counterup.min.js"> </script>
+    <script src="/vendor/owl.carousel/owl.carousel.min.js"></script>
+    <script src="/vendor/owl.carousel2.thumbs/owl.carousel2.thumbs.min.js"></script>
+    <script src="/js/jquery.parallax-1.1.3.js"></script>
+    <script src="/vendor/bootstrap-select/js/bootstrap-select.min.js"></script>
+    <script src="/vendor/jquery.scrollto/jquery.scrollTo.min.js"></script>
+    <script src="/js/front.js"></script>
+    
+    
+    <script src="/js/wa-shop.js"></script>
 	
-	<script>
-	    //check if some field is still emtpy in form
-	    //useful when the removed field was the one
-	    //that disable the submit button
-		function checkEmptiness(){
-			console.log("checkEmptiness");
-	        var empty = false;
-			$('.form-form input').each( function() {
-				console.log("inside function each check Emptiness");
-				console.log("Value: " + this.value)
-				if ($.trim(this.value).length == 0) {
-					console.log("empty");
-					empty = true;
-				}
-			});
-		
-			if (!empty) {
-				$('#submit-order-button').attr('disabled', false);
-				//$('#submit-order-button').removeClass("btn-secondary");
-				$('#submit-order-button').addClass("btn-template-outlined");
-				console.log("enabled");
-			} else {
-				$('#submit-order-button').attr('disabled', true);
-				$('#submit-order-button').removeClass("btn-template-outlined");
-				//$('#submit-order-button').addClass("btn-secondary");
-				console.log("disabled");
-			}
-		}
-	</script>
-	
-	<script>
-		function waGetNumberFromId(waIdElement){
-			var waTokenizedId = waIdElement.split("-",3);
-			//console.log("The string is: " + waTokenizedId[2]);
-			return waTokenizedId[2];
-		}
-		
-
-		$(document).ready(function() {
-			//use event delegation because the button was dinamically added
-			//https://learn.jquery.com/events/event-delegation/
-			$('.form-form').on('click', '.wa-remove-element', function() {
-				var waOwnId = this.id;
-				var waIdTableRow = "wa-row-" + waGetNumberFromId(waOwnId);
-				var numItems = $('.wa-remove-element').length;
-				if (numItems > 1) {
-					$("#" + waIdTableRow).remove();
-					checkEmptiness();
-				}
-				
-				//The number of item was 2, so after the removal only left
-				//one, so remove the trash button
-				if (numItems == 2)
-				{
-					$('.wa-remove-element').remove();
-					//Add class to allow add the trash button to first field 
-					//when added the second one
-					$('.wa-add-class').addClass('wa-trash-button');
-				}
-			});
-		});
-	//If the button was disabled and the empty field is removed, then the button is not enabled FIX IT
-	</script>
-	
-	<script>
-		$(document).ready(function(){
-			console.log("before inserting trash button");
-			console.log("number of rows: "+ $('.wa-row').length);
-			if ($('.wa-row').length > 1){
-				console.log("more than one row");
-				$('.wa-row').each(function(){
-					console.log("inside each loop for row: "+this.id);
-					var waIdNumber = waGetNumberFromId(this.id);
-					$('div.wa-trash-button:first').after('<button type="button" id="delete-elemen-'+ waIdNumber +'" class="wa-remove-element" >\
-					<i class="fa fa-trash"></i></button>');
-					//Remove the class to avoid to add more that one button to first field
-					$("div.wa-trash-button:first").removeClass("wa-trash-button");
-				});
-			}
-		});
-		
-		function selectHigherId() {
-			var waHigherId = 2;
-			$('.wa-row').each(function(){
-				console.log("this.id: " + this.id + "higher id: "+ waHigherId);
-				var waLocalId = waGetNumberFromId(this.id);
-				if (waHigherId < waLocalId) {
-					waHigherId = waLocalId;
-					console.log("waHigherId: "+waHigherId);
-				}
-			});
-			return ++waHigherId;
-		}
-
-		function my_button_click_handler() {
-			$(document).ready(function(){
-				var waCount = selectHigherId();
-				console.log("waCount: "+ waCount);
-				//Disable the submit button because new empty field is added
-				$('#submit-order-button').attr('disabled',true);
-				$('#submit-order-button').removeClass("btn-template-outlined");
-				//$('#submit-order-button').addClass("btn-secondary");
-				console.log("button disabled");
-				$(".wa-insert-new-text-box").before('\
-					<tr class="wa-row" id="wa-row-' +waCount+'"><div class="form-group">\
-					<td>\
-	                    <input id="order-element-'+ waCount +'" type="text" name="productNames[]" class="form-control">\
-	                </td>\
-	                <td><div class="wa-add-class" </div>\
-	                    <button type="button" class="wa-remove-element" id="delete-element-' + waCount+ '">\
-						    <i class="fa fa-trash"></i></button>\
-					</td>\
-					</div>\
-					</tr>\
-                ')
-                
-				var setFocusTo = "#order-element-"+ waCount;
-				$(setFocusTo).focus();
-                
-                waCount++;
-				
-                
-                //If number of field is 1, the first field does not have trash button
-                if ($('.wa-remove-element').length == 1){
-                	//if the first field was removed before add the button, the number
-                	//must be gathered from the tr id, because it is not 1.
-                	var waIdNumber = waGetNumberFromId($('.wa-row')[0].id);
-                	//console.log("number got from tr: ", waIdNumber);
-					$('.wa-trash-button').after('<button type="button" id="delete-elemen-'+ waIdNumber +'" class="wa-remove-element" >\
-											<i class="fa fa-trash"></i></button>');
-					//Remove the class to avoid to add more that one button to first field
-					$("div").removeClass("wa-trash-button");
-				}
-                
-			});
-			return false;
-		}
-	</script>
 </head>
   <body>
     <div id="all">
