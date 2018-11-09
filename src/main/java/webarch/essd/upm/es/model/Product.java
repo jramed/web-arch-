@@ -58,5 +58,23 @@ public class Product {
 	public String toString() {
 		return "Product [id = " + id + ", name=" + name + "]";
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null) {
+			return false;
+		}
+		
+		if (!Product.class.isAssignableFrom(obj.getClass())) {
+			return false;
+		}
+			
+		final Product other = (Product)obj;
+		if (this.getName().equals(other.getName())) {
+			return true;
+		}
+		
+		return false;
+	}
 
 }
