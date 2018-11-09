@@ -129,7 +129,10 @@
 						</tr>\
                 ')
                 
-                waCount++;
+				var setFocusTo = "#order-element-"+ waCount;
+				$(setFocusTo).focus();
+                
+				waCount++;
 				
                 
                 //If number of field is 1, the first field does not have trash button
