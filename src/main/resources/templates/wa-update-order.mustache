@@ -101,14 +101,14 @@
         <div class="container">
           <div class="row">
             <div class="col-lg-12">
-
-                <p class="lead">You can update the items of the order by adding, removing or modifying them</p>
-                <hr>
+              <p class="lead">You can update the items of the order by adding, removing or modifying them</p>
+              <div class="box">
                 <form class="form-form" action="/wa-store-update-order/{{orderId}}" method="get">
                 <div class="table-responsive">
                   <table class="table">
                   <tbody>
                   <tr>
+                  <td></td>
                   <td>
                   <div class="form-group">
                     <label for="order-title">Title<span class="required text-primary">*</span></label>
@@ -118,14 +118,18 @@
                   <td></td>
                   </tr>
                   <tr>
+                  <td></td>
                   <td>
                   <div class="form-group">
                     <label for="order-element">items to buy<span class="required text-primary">*</span></label>
                   </div>
-                  </td><td></td>
+                  </td>
+                  <td></td>
                   </tr>
+                  
                   {{#products}}
                   <tr id="wa-row-{{id}}" class="wa-row">
+                  <td><div class="wa-add-checkbox"></div></td>
                   <td>
                   <div class="form-group">
                     <input id="order-element-{{id}}" type="text" name="productNames[]" value="{{name}}" class="form-control">
@@ -134,24 +138,27 @@
                   <td><div class="wa-add-class wa-trash-button"></div></td>
                   </tr>
                   {{/products}}
+                  
                   <tr class="wa-insert-new-text-box">
+                  <td></td>
                   <td>
                   <div class="box-footer d-flex justify-content-between align-items-center">
                     <div class="left-col">
                       <button type="button" onclick="my_button_click_handler()" class="btn btn-template-outlined"><i class="fa fa-plus"></i> Add item</button>
                     </div>
                     <div class="right-col">
-                      <button type="button" onclick="window.location.href='/wa-main-page'" class="btn btn-secondary">Cancel update<i class="fa fa-close"></i></a></button>
+                      <button type="button" onclick="window.location.href='/wa-main-page'" class="btn btn-secondary">Cancel update<i class="fa fa-close"></i></button>
                       <button type="submit" id="submit-order-button" class="btn btn-template-outlined">Proceed to checkout<i class="fa fa-chevron-right"></i></button>
                     </div>
                   </div>
 				  </td>
+				  <td></td>
                   </tr>
                   </tbody>
                   </table>
                   </div>
                 </form>
-
+			  </div>
             </div>
           </div>
         </div>

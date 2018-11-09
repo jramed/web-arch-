@@ -66,6 +66,7 @@ function my_button_click_handler() {
 		console.log("button disabled");
 		$(".wa-insert-new-text-box").before('\
 			<tr class="wa-row" id="wa-row-' +waCount+'"><div class="form-group">\
+			<td><div><input type="checkbox"></div></td>\
 			<td>\
                 <input id="order-element-'+ waCount +'" type="text" name="productNames[]" class="form-control">\
             </td>\
@@ -93,6 +94,8 @@ function my_button_click_handler() {
 									<i class="fa fa-trash"></i></button>');
 			//Remove the class to avoid to add more that one button to first field
 			$("div").removeClass("wa-trash-button");
+			$('.wa-add-checkbox:first').append('<input type="checkbox">');
+			$('div.wa-add-checkbox:first').removeClass("wa-add-checkbox");
 		}
         
 	});
@@ -163,4 +166,9 @@ $(document).ready(function(){
 			$("div.wa-trash-button:first").removeClass("wa-trash-button");
 		});
 	}
+	$('.wa-row').each(function(){
+		$('.wa-add-checkbox:first').append('<input type="checkbox">');
+		$('div.wa-add-checkbox:first').removeClass("wa-add-checkbox");
+		
+	})
 });
