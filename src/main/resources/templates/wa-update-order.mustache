@@ -143,17 +143,20 @@
 				//$('#submit-order-button').addClass("btn-secondary");
 				console.log("button disabled");
 				$(".wa-insert-new-text-box").before('\
-						<tr class="wa-row" id="wa-row-' +waCount+'"><div class="form-group">\
-						<td>\
-	                        <input id="order-element-'+ waCount +'" type="text" name="productNames[]" class="form-control">\
-	                    </td>\
-	                    <td><div class="wa-add-class" </div>\
-	                        <button type="button" class="wa-remove-element" id="delete-element-' + waCount+ '">\
+					<tr class="wa-row" id="wa-row-' +waCount+'"><div class="form-group">\
+					<td>\
+	                    <input id="order-element-'+ waCount +'" type="text" name="productNames[]" class="form-control">\
+	                </td>\
+	                <td><div class="wa-add-class" </div>\
+	                    <button type="button" class="wa-remove-element" id="delete-element-' + waCount+ '">\
 						    <i class="fa fa-trash"></i></button>\
-						</td>\
-						</div>\
-						</tr>\
+					</td>\
+					</div>\
+					</tr>\
                 ')
+                
+				var setFocusTo = "#order-element-"+ waCount;
+				$(setFocusTo).focus();
                 
                 waCount++;
 				
