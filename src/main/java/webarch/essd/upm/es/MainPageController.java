@@ -25,30 +25,6 @@ public class MainPageController {
 	@Autowired
 	private CustomerOrderRepository customerOrderRepository;
 	
-/*	@PostConstruct
-	public void init() {
-
-		CustomerOrder order1 = new CustomerOrder("Selección");
-		CustomerOrder order2 = new CustomerOrder("FC Barcelona");
-		CustomerOrder order3 = new CustomerOrder("Atlético de Madrid");
-		
-		customerOrderRepository.save(order1);
-		customerOrderRepository.save(order2);
-		customerOrderRepository.save(order3);
-		
-		Product p1 = new Product("product1");
-		Product p2 = new Product("product2");
-		
-		p1.getOrders().add(order1);
-		p1.getOrders().add(order2);
-		
-		p2.getOrders().add(order1);
-		p2.getOrders().add(order3);
-		
-		productRepository.save(p1);
-		productRepository.save(p2);
-}*/
-	
 	@GetMapping("/wa-main-page")
 	public String customerOrders(Model model) {
 		generateMainPageData(model);
@@ -71,7 +47,6 @@ public class MainPageController {
 		model.addAttribute("customerOrders", customerOrders);
 	}
 	
-	//web page with jscript instead for mustache template?
 	@GetMapping("/wa-place-new-order")
 	public String placeNewOrder(Model model) {
 		
@@ -91,7 +66,7 @@ public class MainPageController {
 			productRepository.save(p1);
 		}
 		
-		System.out.println("The order content is: " + customerOrder1.toString());
+		//Systemout.println("The order content is: " + customerOrder1.toString());
 		generateMainPageData(model);		
 		return "wa-main-page";
 	}
@@ -100,10 +75,10 @@ public class MainPageController {
 	public String detailOrder(Model model, @PathVariable long id) {
 		Optional<CustomerOrder> customerOrder = customerOrderRepository.findById(id);
 		if (customerOrder.isPresent()) {
-			System.out.println("The order content read form DB is: "+ customerOrder.toString());
+			//Systemout.println("The order content read form DB is: "+ customerOrder.toString());
 			model.addAttribute("name", customerOrder.get().getName());
 			List<String> products = customerOrder.get().getProducstNames();
-			System.out.println("The list of products is: "+ products.toString());
+			//Systemout.println("The list of products is: "+ products.toString());
 			model.addAttribute("products", products);
 			model.addAttribute("id", id);
 			return "wa-shop-basket";
@@ -119,7 +94,7 @@ public class MainPageController {
 			for (Product product: customerOrder.get().getProducts()) {
 				productRepository.delete(product);
 			}
-			System.out.println("Inside remove order and with id: "+ id);
+			//Systemout.println("Inside remove order and with id: "+ id);
 			customerOrderRepository.delete(customerOrder.get());
 			generateMainPageData(model);
 			return "wa-main-page";
