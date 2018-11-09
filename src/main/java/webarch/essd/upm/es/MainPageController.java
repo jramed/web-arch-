@@ -1,5 +1,6 @@
 package webarch.essd.upm.es;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -139,5 +140,38 @@ public class MainPageController {
 		return "public/404.html";
 	}
 	
+	@GetMapping("/wa-store-update-order/{id}")
+	public String storeUpdateOrder(Model model, @PathVariable long id, 
+			@RequestParam(value="productNames[]") String[] productNames) {
+
+		Optional<CustomerOrder> customerOrder = customerOrderRepository.findById(id);
+
+		if (customerOrder.isPresent()) {
+			List<Product> modifiedProducts = new ArrayList<>();
+			for (String productName : productNames) {
+				Product p1 = new Product(productName);
+				modifiedProducts.add(p1);
+			}
+
+			List<Product> storedProducts = customerOrder.get().getProducts();
+			
+			ArrayList<Product> productsToAdd = new ArrayList<Product>(modifiedProducts);
+			productsToAdd.removeAll(storedProducts);
+			ArrayList<Product> productsToRemove = new ArrayList<Product>(storedProducts);
+			productsToRemove.removeAll(modifiedProducts);
+
+			for (Product productAdd : productsToAdd) {
+				Product p1 = new Product(productAdd.getName());
+				p1.getOrders().add(customerOrder.get());
+				productRepository.save(p1);
+			}
+
+			for (Product productRemove: productsToRemove) {
+				productRepository.delete(productRemove);
+			}
+		}
+		generateMainPageData(model);
+		return "wa-main-page";
+	}
 	
 }
