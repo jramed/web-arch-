@@ -65,7 +65,7 @@ function my_button_click_handler() {
 		
 		var waCheckboxDiv = "<td></td>";
 		if ($('#order-title').prop('disabled')) {
-			waCheckboxDiv = '<td><div><input type="checkbox"></div></td>';
+			waCheckboxDiv = '<td><div class="wa-add-checkbox"><input type="checkbox"></div></td>';
 		}
 		
 		console.log("button disabled");
@@ -89,7 +89,8 @@ function my_button_click_handler() {
         waCount++;
 		
         
-        //If number of field is 1, the first field does not have trash button
+        //If there was just one textbox, the first one does not have trash button
+        //jquery return the former status, not the new one.
         if ($('.wa-remove-element').length == 1){
         	//if the first field was removed before add the button, the number
         	//must be gathered from the tr id, because it is not 1.
@@ -99,11 +100,6 @@ function my_button_click_handler() {
 									<i class="fa fa-trash"></i></button>');
 			//Remove the class to avoid to add more that one button to first field
 			$("div").removeClass("wa-trash-button");
-			//if the order title is disabled , then in update page
-			if ($('#order-title').prop('disabled')) {
-				$('.wa-add-checkbox:first').append('<input type="checkbox">');
-				$('div.wa-add-checkbox:first').removeClass("wa-add-checkbox");
-			}
 		}
         
 	});
@@ -165,19 +161,16 @@ $(document).ready(function(){
 	//console.log("number of rows: "+ $('.wa-row').length);
 	if ($('.wa-row').length > 1){
 		//console.log("more than one row");
-		//console.log("inside each loop for row: "+this.id);
-		
-		var waIdNumber = waGetNumberFromId(this.id);
-		$('div.wa-trash-button:first').after('<button type="button"\
-				id="delete-elemen-'+ waIdNumber +'" class="wa-remove-element" >\
-				<i class="fa fa-trash"></i></button>');
-		//Remove the class to avoid to add more that one button to first field
-		$("div.wa-trash-button:first").removeClass("wa-trash-button");
-	}
+		$('.wa-row').each(function(){
+			//console.log("inside each loop for row: "+this.id);
 
-	//if the order title is disabled , then in update page
-	if ($('#order-title').prop('disabled')) {
-		$('.wa-add-checkbox').append('<input type="checkbox">');
-		$('div.wa-add-checkbox:first').removeClass("wa-add-checkbox");
+			var waIdNumber = waGetNumberFromId(this.id);
+			var waFirstElementTrashButton = $('div.wa-trash-button:first');
+			waFirstElementTrashButton.after('<button type="button"\
+					id="delete-elemen-'+ waIdNumber +'" class="wa-remove-element" >\
+			<i class="fa fa-trash"></i></button>');
+			//Remove the class to avoid to add more that one button to first field
+			waFirstElementTrashButton.removeClass("wa-trash-button");
+		});
 	}
 });
