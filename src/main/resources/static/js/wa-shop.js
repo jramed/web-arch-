@@ -18,11 +18,15 @@ function waDisabledButton(waElementId) {
 //that disable the submit button
 //Equal for update order and place new order
 function checkEmptiness(){
-    var empty = false;
+    var empty = true;
 	$('.form-control').each( function() {
 		console.log("inside each for emptiness");
 		console.log("the id is: " +this.id + " the value is: "+this.value);
-		if ($.trim(this.value).length == 0) {
+		if ($.trim(this.value).length != 0) {
+			empty = false;
+		}
+		else
+		{
 			empty = true;
 			return false;
 		}
@@ -109,22 +113,7 @@ $(document).ready(function(){
 
 	$('.form-form').on('keyup blur input', 'input', function(){
 		console.log("inside keyup blur input");
-		var empty = false;
-		$('.form-control').each(function() {
-			console.log("inside each");
-			console.log("the id is: " +this.id + " the value is: "+this.value);
-			if ($.trim(this.value).length == 0) {
-				empty = true;
-			}
-		});
-
-		if (!empty) {
-			waEnabledButton('#submit-order-button');
-		}
-		else
-		{
-			waDisabledButton('#submit-order-button');
-		}
+		checkEmptiness();
 	});
 });
 
