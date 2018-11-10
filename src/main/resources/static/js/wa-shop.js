@@ -161,25 +161,23 @@ $(document).ready(function() {
 });
 
 $(document).ready(function(){
-	console.log("before inserting trash button");
-	console.log("number of rows: "+ $('.wa-row').length);
+	//console.log("before inserting trash button");
+	//console.log("number of rows: "+ $('.wa-row').length);
 	if ($('.wa-row').length > 1){
-		console.log("more than one row");
-		$('.wa-row').each(function(){
-			console.log("inside each loop for row: "+this.id);
-			var waIdNumber = waGetNumberFromId(this.id);
-			$('div.wa-trash-button:first').after('<button type="button" id="delete-elemen-'+ waIdNumber +'" class="wa-remove-element" >\
+		//console.log("more than one row");
+		//console.log("inside each loop for row: "+this.id);
+		
+		var waIdNumber = waGetNumberFromId(this.id);
+		$('div.wa-trash-button:first').after('<button type="button"\
+				id="delete-elemen-'+ waIdNumber +'" class="wa-remove-element" >\
 				<i class="fa fa-trash"></i></button>');
-			//Remove the class to avoid to add more that one button to first field
-			$("div.wa-trash-button:first").removeClass("wa-trash-button");
-		});
+		//Remove the class to avoid to add more that one button to first field
+		$("div.wa-trash-button:first").removeClass("wa-trash-button");
 	}
-	
+
 	//if the order title is disabled , then in update page
 	if ($('#order-title').prop('disabled')) {
-		$('.wa-row').each(function(){
-			$('.wa-add-checkbox:first').append('<input type="checkbox">');
-			$('div.wa-add-checkbox:first').removeClass("wa-add-checkbox");
-		})
+		$('.wa-add-checkbox').append('<input type="checkbox">');
+		$('div.wa-add-checkbox:first').removeClass("wa-add-checkbox");
 	}
 });
