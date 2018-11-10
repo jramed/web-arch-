@@ -60,8 +60,8 @@ public class MainPageController {
 		CustomerOrder customerOrder = new CustomerOrder(name);
 		CustomerOrder customerOrder1 = customerOrderRepository.save(customerOrder);
 		
-		for (String productName : productNames) {
-			Product p1 = new Product(productName);
+		for (String productName : productNames) {	
+			Product p1 = new Product(productName, "checked");
 			p1.getOrders().add(customerOrder1);
 			productRepository.save(p1);
 		}
@@ -117,14 +117,16 @@ public class MainPageController {
 	
 	@GetMapping("/wa-store-update-order/{id}")
 	public String storeUpdateOrder(Model model, @PathVariable long id, 
-			@RequestParam(value="productNames[]") String[] productNames) {
+			@RequestParam(value="productNames[]") String[] productNames,
+			@RequestParam(defaultValue = "false", value="checkboxStatus[]") String[] status) {
 
 		Optional<CustomerOrder> customerOrder = customerOrderRepository.findById(id);
 
 		if (customerOrder.isPresent()) {
 			List<Product> modifiedProducts = new ArrayList<>();
-			for (String productName : productNames) {
-				Product p1 = new Product(productName);
+			for (int count = 0; count < productNames.length; ++count) {
+			//for (String productName : productNames) {
+				Product p1 = new Product(productNames[count],status[count]);
 				modifiedProducts.add(p1);
 			}
 
@@ -135,8 +137,9 @@ public class MainPageController {
 			ArrayList<Product> productsToRemove = new ArrayList<Product>(storedProducts);
 			productsToRemove.removeAll(modifiedProducts);
 
-			for (Product productAdd : productsToAdd) {
-				Product p1 = new Product(productAdd.getName());
+			for (int count = 0; count < productsToAdd.size(); ++count) {
+			//for (Product productAdd : productsToAdd) {
+				Product p1 = new Product(productsToAdd.get(count).getName(),productsToAdd.get(count).getStatus());
 				p1.getOrders().add(customerOrder.get());
 				productRepository.save(p1);
 			}

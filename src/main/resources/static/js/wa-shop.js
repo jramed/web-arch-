@@ -19,9 +19,12 @@ function waDisabledButton(waElementId) {
 //Equal for update order and place new order
 function checkEmptiness(){
     var empty = false;
-	$('.form-form input').each( function() {
+	$('.form-control').each( function() {
+		console.log("inside each for emptiness");
+		console.log("the id is: " +this.id + " the value is: "+this.value);
 		if ($.trim(this.value).length == 0) {
 			empty = true;
+			return false;
 		}
 	});
 
@@ -58,7 +61,11 @@ function my_button_click_handler() {
 		
 		var waCheckboxDiv = "<td></td>";
 		if ($('#order-title').prop('disabled')) {
-			waCheckboxDiv = '<td><div><input type="checkbox" class="wa-add-checkbox" id="wa-checkbox-'+ waCount +'"></div></td>';
+			waCheckboxDiv = '\
+				<td><div>\
+				  <input type="checkbox" class="wa-add-checkbox" id="wa-checkbox-'+ waCount +'">\
+				  <input type="hidden"  name="checkboxStatus[]" value="unchecked">\
+				</div></td>';
 		}
 		
 		console.log("button disabled");
@@ -101,8 +108,11 @@ $(document).ready(function(){
 	waDisabledButton('#submit-order-button');
 
 	$('.form-form').on('keyup blur input', 'input', function(){
+		console.log("inside keyup blur input");
 		var empty = false;
-		$('input').each(function() {
+		$('.form-control').each(function() {
+			console.log("inside each");
+			console.log("the id is: " +this.id + " the value is: "+this.value);
 			if ($.trim(this.value).length == 0) {
 				empty = true;
 			}
@@ -148,6 +158,9 @@ $(document).ready(function() {
 		var waStyle = ( waIsChecked == true ) ? 'line-through' : 'none';
 		var waIdOrderElement = "#order-element-" + waGetNumberFromId(this.id);
 		$(waIdOrderElement).css('text-decoration', waStyle);
+		$(waIdOrderElement)
+		
+		
 	});
 });
 

@@ -18,6 +18,8 @@ public class Product {
 	
 	private String name;
 	
+	private String status;
+
 	@ManyToMany
 	private List<CustomerOrder> orders = new ArrayList<>();
 	
@@ -25,9 +27,10 @@ public class Product {
 		
 	}
 
-	public Product(String name) {
+	public Product(String name, String status) {
 		super();
 		this.name = name;
+		this.status = status;
 	}
 
 	public long getId() {
@@ -46,6 +49,14 @@ public class Product {
 		this.name = name;
 	}
 
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	
 	public List<CustomerOrder> getOrders() {
 		return orders;
 	}
