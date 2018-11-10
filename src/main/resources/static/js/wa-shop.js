@@ -6,13 +6,11 @@ function checkRemoval() {
 function waEnabledButton(waElementId) {
 	$(waElementId).attr('disabled', false);
 	$(waElementId).addClass("btn-template-outlined");
-	console.log("enabled: "+waElementId);
 }
 
 function waDisabledButton(waElementId) {
 	$(waElementId).attr('disabled', true);
 	$(waElementId).removeClass("btn-template-outlined");
-	console.log("disabled: "+waElementId);
 }
 
 //check if some field is still empty in form.
@@ -20,13 +18,9 @@ function waDisabledButton(waElementId) {
 //that disable the submit button
 //Equal for update order and place new order
 function checkEmptiness(){
-	console.log("checkEmptiness");
     var empty = false;
 	$('.form-form input').each( function() {
-		console.log("inside function each check Emptiness");
-		console.log("Value: " + this.value)
 		if ($.trim(this.value).length == 0) {
-			console.log("empty");
 			empty = true;
 		}
 	});
@@ -59,13 +53,12 @@ function selectHigherId() {
 function my_button_click_handler() {
 	$(document).ready(function(){
 		var waCount = selectHigherId();
-		//console.log("waCount: "+ waCount);
 		//Disable the submit button because new empty field is added
 		waDisabledButton('#submit-order-button');
 		
 		var waCheckboxDiv = "<td></td>";
 		if ($('#order-title').prop('disabled')) {
-			waCheckboxDiv = '<td><div class="wa-add-checkbox"><input type="checkbox"></div></td>';
+			waCheckboxDiv = '<td><div><input type="checkbox" class="wa-add-checkbox" id="wa-checkbox-'+ waCount +'"></div></td>';
 		}
 		
 		console.log("button disabled");
@@ -88,14 +81,12 @@ function my_button_click_handler() {
         
         waCount++;
 		
-        
         //If there was just one textbox, the first one does not have trash button
         //jquery return the former status, not the new one.
         if ($('.wa-remove-element').length == 1){
         	//if the first field was removed before add the button, the number
         	//must be gathered from the tr id, because it is not 1.
         	var waIdNumber = waGetNumberFromId($('.wa-row')[0].id);
-        	//console.log("number got from tr: ", waIdNumber);
 			$('.wa-trash-button').after('<button type="button" id="delete-elemen-'+ waIdNumber +'" class="wa-remove-element" >\
 									<i class="fa fa-trash"></i></button>');
 			//Remove the class to avoid to add more that one button to first field
@@ -110,13 +101,9 @@ $(document).ready(function(){
 	waDisabledButton('#submit-order-button');
 
 	$('.form-form').on('keyup blur input', 'input', function(){
-		console.log("inside function keyup");
 		var empty = false;
 		$('input').each(function() {
-			console.log("inside function each");
-			console.log("Value: " + this.value)
 			if ($.trim(this.value).length == 0) {
-				console.log("empty");
 				empty = true;
 			}
 		});
@@ -155,7 +142,8 @@ $(document).ready(function() {
 		}
 	});
 	
-	$('.wa-add-checkbox').on('change', function() {
+	$('div').on('change', '.wa-add-checkbox', function() {
+		console.log(this.id);
 		waIsChecked = $(this).is(':checked');
 		var waStyle = ( waIsChecked == true ) ? 'line-through' : 'none';
 		var waIdOrderElement = "#order-element-" + waGetNumberFromId(this.id);
@@ -164,13 +152,8 @@ $(document).ready(function() {
 });
 
 $(document).ready(function(){
-	//console.log("before inserting trash button");
-	//console.log("number of rows: "+ $('.wa-row').length);
 	if ($('.wa-row').length > 1){
-		//console.log("more than one row");
 		$('.wa-row').each(function(){
-			//console.log("inside each loop for row: "+this.id);
-
 			var waIdNumber = waGetNumberFromId(this.id);
 			var waFirstElementTrashButton = $('div.wa-trash-button:first');
 			waFirstElementTrashButton.after('<button type="button"\
