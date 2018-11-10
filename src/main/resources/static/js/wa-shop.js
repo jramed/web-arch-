@@ -154,6 +154,13 @@ $(document).ready(function() {
 			$('.wa-add-class').addClass('wa-trash-button');
 		}
 	});
+	
+	$('.wa-add-checkbox').on('change', function() {
+		waIsChecked = $(this).is(':checked');
+		var waStyle = ( waIsChecked == true ) ? 'line-through' : 'none';
+		var waIdOrderElement = "#order-element-" + waGetNumberFromId(this.id);
+		$(waIdOrderElement).css('text-decoration', waStyle);
+	});
 });
 
 $(document).ready(function(){
