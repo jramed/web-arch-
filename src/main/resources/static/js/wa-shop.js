@@ -1,3 +1,7 @@
+//one of the requirement of the exercise was to have one javascript file
+//It could be better to have split in several files, because
+//some of the code only apply to one web page
+
 
 function checkRemoval() {
 	return confirm("Please confirm or cancel the operation");
@@ -57,12 +61,16 @@ function selectHigherId() {
 	return ++waHigherId;
 }
 
+
+//new item button handler
 function my_button_click_handler() {
 	$(document).ready(function(){
 		var waCount = selectHigherId();
 		//Disable the submit button because new empty field is added
 		waDisabledButton('#submit-order-button');
 		
+		//only for wa-update page.
+		//Add checkbox for every item
 		var waCheckboxDiv = "<td></td>";
 		if ($('#order-title').prop('disabled')) {
 			waCheckboxDiv = '\
@@ -73,6 +81,8 @@ function my_button_click_handler() {
 		}
 		
 		console.log("button disabled");
+		//Insert the delete item button because when added a button there will be
+		//at least another one.
 		$(".wa-insert-new-text-box").before('\
 			<tr class="wa-row" id="wa-row-' +waCount+'"><div class="form-group">\
 			'+ waCheckboxDiv + '\
@@ -87,6 +97,7 @@ function my_button_click_handler() {
 			</tr>\
         ')
         
+        //Set focus to the new created item
 		var setFocusTo = "#order-element-"+ waCount;
 		$(setFocusTo).focus();
         
@@ -103,23 +114,24 @@ function my_button_click_handler() {
 			//Remove the class to avoid to add more that one button to first field
 			$("div").removeClass("wa-trash-button");
 		}
-        
 	});
 	return false;
 }
 
 $(document).ready(function(){
-	waDisabledButton('#submit-order-button');
+	//only for wa-place-new-order
+	if ($('#order-title .wa-disabled-button')) {
+		waDisabledButton('#submit-order-button');
+	}
 
+	//to detect a textbox is not empty
 	$('.form-form').on('keyup blur input', 'input', function(){
 		console.log("inside keyup blur input");
 		checkEmptiness();
 	});
-});
 
-
-$(document).ready(function() {
-	//use event delegation because the button was dinamically added
+	//Remove an item with the trash button
+	//use event delegation because the button was dynamically added
 	//https://learn.jquery.com/events/event-delegation/
 	$('.form-form').on('click', '.wa-remove-element', function() {
 		var waOwnId = this.id;
@@ -141,7 +153,7 @@ $(document).ready(function() {
 		}
 	});
 	
-	
+	//Detect when a checkbox has been changed
 	$('div').on('change', '.wa-add-checkbox', function() {
 		console.log("checkbox handler: "+this.id);
 		waIsChecked = $(this).is(':checked');
@@ -152,6 +164,10 @@ $(document).ready(function() {
 		$(this).next('input[type="hidden"]').val(waChecked);
 	});
 	
+	//only for wa-update-order page.
+	//Update the text taking into account the value of the hidden field
+	//it is necessary to use the hidden field because when a checkbox
+	//is not checked the info is not sent to the server.
 	if ($('#order-title').prop('disabled')) {
 		console.log("To update the checkboxes");
 		$('.wa-add-checkbox').each(function() {
@@ -164,9 +180,10 @@ $(document).ready(function() {
 			}
 		});
 	}
-});
 
-$(document).ready(function(){
+	//only for wa-update-order page
+	//Add the trash button when there is more than one element
+	if ($('#order-title').prop('disabled')) {
 	if ($('.wa-row').length > 1){
 		$('.wa-row').each(function(){
 			var waIdNumber = waGetNumberFromId(this.id);
@@ -177,5 +194,6 @@ $(document).ready(function(){
 			//Remove the class to avoid to add more that one button to first field
 			waFirstElementTrashButton.removeClass("wa-trash-button");
 		});
+	}
 	}
 });
