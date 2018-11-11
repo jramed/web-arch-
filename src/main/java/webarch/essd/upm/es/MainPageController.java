@@ -112,7 +112,7 @@ public class MainPageController {
 			model.addAttribute("orderId", customerOrder.get().getId());
 			return "wa-update-order";
 		}
-		return "public/404.html";
+		return "wa-404.html";
 	}
 	
 	@GetMapping("/wa-store-update-order/{id}")
@@ -159,11 +159,12 @@ public class MainPageController {
 			for (Product productRemove: productsToRemove) {
 				productRepository.delete(productRemove);
 			}
-
+			generateMainPageData(model);
+			return "wa-main-page";
 			
 		}
-		generateMainPageData(model);
-		return "wa-main-page";
+		return "public/404.html";
+
 	}
 	
 }
