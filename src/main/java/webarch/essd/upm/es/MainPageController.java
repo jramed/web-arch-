@@ -107,8 +107,6 @@ public class MainPageController {
 		Optional<CustomerOrder> customerOrder = customerOrderRepository.findById(id);
 		if ( customerOrder.isPresent()) {
 			List<Product> products = customerOrder.get().getProducts();
-			System.out.println("======================");
-			System.out.println("Product got from DB to show in WP: "+products.toString());
 			model.addAttribute("products",products);
 			model.addAttribute("orderName", customerOrder.get().getName());
 			model.addAttribute("orderId", customerOrder.get().getId());
@@ -141,17 +139,11 @@ public class MainPageController {
 			ArrayList<Product> productsInDBToCheckStatus = new ArrayList<Product>(storedProducts);
 			productsInDBToCheckStatus.retainAll(modifiedProducts);
 			ArrayList<Product> productsToCheckFromUpdate = new ArrayList<Product>(modifiedProducts);
-			System.out.println("======================");
-			System.out.println("Products from DB: "+ productsInDBToCheckStatus.toString());
-			System.out.println("Products from Update: " + productsToCheckFromUpdate.toString());
 			productsInDBToCheckStatus.forEach((productFromDb)->{
 				productsToCheckFromUpdate.forEach((productFromUpdate)->{
 					if(productFromDb.equals(productFromUpdate) &&
 							!productFromDb.equalsStatus(productFromUpdate)) {
-						System.out.println("Product before update: "+ productFromDb.toString());
-						System.out.println("Product from update: " + productFromUpdate.toString());
 						productFromDb.setStatus(productFromUpdate.getStatus());
-						System.out.println("Product after update: "+ productFromDb.toString());
 						productRepository.save(productFromDb);
 					}
 				});
@@ -161,12 +153,10 @@ public class MainPageController {
 				Product p1 = new Product(productsToAdd.get(count).getName(),
 						productsToAdd.get(count).getStatus());
 				p1.getOrders().add(customerOrder.get());
-				System.out.println("Products to add: " +p1.toString());
 				productRepository.save(p1);
 			}
 
 			for (Product productRemove: productsToRemove) {
-				System.out.println("Products to remove: " +productRemove.toString());
 				productRepository.delete(productRemove);
 			}
 
