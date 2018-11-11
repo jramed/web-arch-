@@ -67,7 +67,7 @@ public class Product {
 	
 	@Override
 	public String toString() {
-		return "Product [id = " + id + ", name=" + name + "]";
+		return "Product [id = " + id + ", name=" + name + ", status="+ status +"]";
 	}
 	
 	@Override
@@ -87,5 +87,42 @@ public class Product {
 		
 		return false;
 	}
+	
+	public boolean equalsStrict(Object obj) {
+		if (obj == null) {
+			return false;
+		}
+		
+		if (!Product.class.isAssignableFrom(obj.getClass())) {
+			return false;
+		}
+			
+		final Product other = (Product)obj;
+		if (this.getName().equals(other.getName()) &&
+				this.getStatus().equals(other.getStatus())) {
+			return true;
+		}
+		
+		return false;
+	}
+	
+	public boolean equalsStatus(Object obj) {
+		if (obj == null) {
+			return false;
+		}
+		
+		if (!Product.class.isAssignableFrom(obj.getClass())) {
+			return false;
+		}
+			
+		final Product other = (Product)obj;
+		if (this.getStatus().equals(other.getStatus())) {
+			return true;
+		}
+		
+		return false;
+	}
 
+	
+	
 }

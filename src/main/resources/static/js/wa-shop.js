@@ -141,16 +141,29 @@ $(document).ready(function() {
 		}
 	});
 	
+	
 	$('div').on('change', '.wa-add-checkbox', function() {
-		console.log(this.id);
+		console.log("checkbox handler: "+this.id);
 		waIsChecked = $(this).is(':checked');
 		var waStyle = ( waIsChecked == true ) ? 'line-through' : 'none';
 		var waIdOrderElement = "#order-element-" + waGetNumberFromId(this.id);
 		$(waIdOrderElement).css('text-decoration', waStyle);
-		$(waIdOrderElement)
-		
-		
+		var waChecked = ( waIsChecked == true ) ? 'checked' : 'unchecked';
+		$(this).next('input[type="hidden"]').val(waChecked);
 	});
+	
+	if ($('#order-title').prop('disabled')) {
+		console.log("To update the checkboxes");
+		$('.wa-add-checkbox').each(function() {
+			console.log("Checking status for checkbox: "+ this.id);
+			if($(this).next().val() == "checked") {
+				console.log("Updating checkbox: "+ this.id);
+				$(this).prop('checked',true);
+				var waIdOrderElement = "#order-element-" + waGetNumberFromId(this.id);
+				$(waIdOrderElement).css('text-decoration', 'line-through');
+			}
+		});
+	}
 });
 
 $(document).ready(function(){

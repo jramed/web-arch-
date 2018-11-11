@@ -61,7 +61,7 @@ public class MainPageController {
 		CustomerOrder customerOrder1 = customerOrderRepository.save(customerOrder);
 		
 		for (String productName : productNames) {	
-			Product p1 = new Product(productName, "checked");
+			Product p1 = new Product(productName, "unchecked");
 			p1.getOrders().add(customerOrder1);
 			productRepository.save(p1);
 		}
@@ -107,6 +107,8 @@ public class MainPageController {
 		Optional<CustomerOrder> customerOrder = customerOrderRepository.findById(id);
 		if ( customerOrder.isPresent()) {
 			List<Product> products = customerOrder.get().getProducts();
+			System.out.println("======================");
+			System.out.println("Product got from DB to show in WP: "+products.toString());
 			model.addAttribute("products",products);
 			model.addAttribute("orderName", customerOrder.get().getName());
 			model.addAttribute("orderId", customerOrder.get().getId());
@@ -125,7 +127,6 @@ public class MainPageController {
 		if (customerOrder.isPresent()) {
 			List<Product> modifiedProducts = new ArrayList<>();
 			for (int count = 0; count < productNames.length; ++count) {
-			//for (String productName : productNames) {
 				Product p1 = new Product(productNames[count],status[count]);
 				modifiedProducts.add(p1);
 			}
@@ -137,16 +138,39 @@ public class MainPageController {
 			ArrayList<Product> productsToRemove = new ArrayList<Product>(storedProducts);
 			productsToRemove.removeAll(modifiedProducts);
 
+			ArrayList<Product> productsInDBToCheckStatus = new ArrayList<Product>(storedProducts);
+			productsInDBToCheckStatus.retainAll(modifiedProducts);
+			ArrayList<Product> productsToCheckFromUpdate = new ArrayList<Product>(modifiedProducts);
+			System.out.println("======================");
+			System.out.println("Products from DB: "+ productsInDBToCheckStatus.toString());
+			System.out.println("Products from Update: " + productsToCheckFromUpdate.toString());
+			productsInDBToCheckStatus.forEach((productFromDb)->{
+				productsToCheckFromUpdate.forEach((productFromUpdate)->{
+					if(productFromDb.equals(productFromUpdate) &&
+							!productFromDb.equalsStatus(productFromUpdate)) {
+						System.out.println("Product before update: "+ productFromDb.toString());
+						System.out.println("Product from update: " + productFromUpdate.toString());
+						productFromDb.setStatus(productFromUpdate.getStatus());
+						System.out.println("Product after update: "+ productFromDb.toString());
+						productRepository.save(productFromDb);
+					}
+				});
+			});
+
 			for (int count = 0; count < productsToAdd.size(); ++count) {
-			//for (Product productAdd : productsToAdd) {
-				Product p1 = new Product(productsToAdd.get(count).getName(),productsToAdd.get(count).getStatus());
+				Product p1 = new Product(productsToAdd.get(count).getName(),
+						productsToAdd.get(count).getStatus());
 				p1.getOrders().add(customerOrder.get());
+				System.out.println("Products to add: " +p1.toString());
 				productRepository.save(p1);
 			}
 
 			for (Product productRemove: productsToRemove) {
+				System.out.println("Products to remove: " +productRemove.toString());
 				productRepository.delete(productRemove);
 			}
+
+			
 		}
 		generateMainPageData(model);
 		return "wa-main-page";
