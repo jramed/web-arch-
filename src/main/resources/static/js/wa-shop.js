@@ -24,8 +24,8 @@ function waDisabledButton(waElementId) {
 function checkEmptiness(){
     var empty = true;
 	$('.form-control').each( function() {
-		console.log("inside each for emptiness");
-		console.log("the id is: " +this.id + " the value is: "+this.value);
+		//console.log("inside each for emptiness");
+		//console.log("the id is: " +this.id + " the value is: "+this.value);
 		if ($.trim(this.value).length != 0) {
 			empty = false;
 		}
@@ -51,11 +51,11 @@ function waGetNumberFromId(waIdElement){
 function selectHigherId() {
 	var waHigherId = 2;
 	$('.wa-row').each(function(){
-		console.log("this.id: " + this.id + "higher id: "+ waHigherId);
+		//console.log("this.id: " + this.id + "higher id: "+ waHigherId);
 		var waLocalId = waGetNumberFromId(this.id);
 		if (waHigherId < waLocalId) {
 			waHigherId = waLocalId;
-			console.log("waHigherId: "+waHigherId);
+			//console.log("waHigherId: "+waHigherId);
 		}
 	});
 	return ++waHigherId;
@@ -80,7 +80,7 @@ function my_button_click_handler() {
 				</div></td>';
 		}
 		
-		console.log("button disabled");
+		//console.log("button disabled");
 		//Insert the delete item button because when added a button there will be
 		//at least another one.
 		$(".wa-insert-new-text-box").before('\
@@ -126,7 +126,7 @@ $(document).ready(function(){
 
 	//to detect a textbox is not empty
 	$('.form-form').on('keyup blur input', 'input', function(){
-		console.log("inside keyup blur input");
+		//console.log("inside keyup blur input");
 		checkEmptiness();
 	});
 
@@ -155,7 +155,7 @@ $(document).ready(function(){
 	
 	//Detect when a checkbox has been changed
 	$('div').on('change', '.wa-add-checkbox', function() {
-		console.log("checkbox handler: "+this.id);
+		//console.log("checkbox handler: "+this.id);
 		waIsChecked = $(this).is(':checked');
 		var waStyle = ( waIsChecked == true ) ? 'line-through' : 'none';
 		var waIdOrderElement = "#order-element-" + waGetNumberFromId(this.id);
@@ -169,11 +169,11 @@ $(document).ready(function(){
 	//it is necessary to use the hidden field because when a checkbox
 	//is not checked the info is not sent to the server.
 	if ($('#order-title').prop('disabled')) {
-		console.log("To update the checkboxes");
+		//console.log("To update the checkboxes");
 		$('.wa-add-checkbox').each(function() {
-			console.log("Checking status for checkbox: "+ this.id);
+			//console.log("Checking status for checkbox: "+ this.id);
 			if($(this).next().val() == "checked") {
-				console.log("Updating checkbox: "+ this.id);
+				//console.log("Updating checkbox: "+ this.id);
 				$(this).prop('checked',true);
 				var waIdOrderElement = "#order-element-" + waGetNumberFromId(this.id);
 				$(waIdOrderElement).css('text-decoration', 'line-through');
