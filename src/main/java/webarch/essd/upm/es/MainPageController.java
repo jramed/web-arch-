@@ -84,7 +84,7 @@ public class MainPageController {
 			return "wa-shop-basket";
 		}
 		
-		return "public/404.html";
+		return "public/error/404.html";
 	}
 	
 	@GetMapping("/wa-remove-order/{id}")
@@ -99,7 +99,7 @@ public class MainPageController {
 			generateMainPageData(model);
 			return "wa-main-page";
 		}
-		return "public/404.html";
+		return "public/error/404.html";
 	}
 	
 	@GetMapping("/wa-update-order/{id}")
@@ -112,7 +112,7 @@ public class MainPageController {
 			model.addAttribute("orderId", customerOrder.get().getId());
 			return "wa-update-order";
 		}
-		return "wa-404.html";
+		return "public/error/404.html";
 	}
 	
 	@GetMapping("/wa-store-update-order/{id}")
@@ -163,7 +163,7 @@ public class MainPageController {
 			return "wa-main-page";
 			
 		}
-		return "public/404.html";
+		return "public/error/404.html";
 
 	}
 	
